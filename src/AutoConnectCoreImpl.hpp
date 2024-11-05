@@ -467,8 +467,8 @@ bool AutoConnectCore<T>::_getConfigSTA(station_config_t* config) {
   bssid = current.sta.bssid;
 #endif
   if (rc) {
-    memcpy(config->ssid, ssid, sizeof(station_config_t::ssid));
-    memcpy(config->bssid, bssid, sizeof(station_config_t::bssid));
+    memcpy(config->ssid, ssid, sizeof(station_config_t::ssid) - 1);
+    memcpy(config->bssid, bssid, sizeof(station_config_t::bssid) - 1);
   }
   return rc;
 }
@@ -1275,8 +1275,8 @@ String AutoConnectCore<T>::_induceConnect(PageArgument& args) {
   else {
     AC_DBG("Queried SSID:%s\n", args.arg(AUTOCONNECT_PARAMID_SSID).c_str());
     // Credential had by the post parameter.
-    strncpy(reinterpret_cast<char*>(_credential.ssid), args.arg(String(F(AUTOCONNECT_PARAMID_SSID))).c_str(), sizeof(_credential.ssid));
-    strncpy(reinterpret_cast<char*>(_credential.password), args.arg(String(F(AUTOCONNECT_PARAMID_PASS))).c_str(), sizeof(_credential.password));
+    strncpy(reinterpret_cast<char*>(_credential.ssid), args.arg(String(F(AUTOCONNECT_PARAMID_SSID))).c_str(), sizeof(_credential.ssid) - 1);
+    strncpy(reinterpret_cast<char*>(_credential.password), args.arg(String(F(AUTOCONNECT_PARAMID_PASS))).c_str(), sizeof(_credential.password) - 1);
     memset(_credential.bssid, 0x00, sizeof(station_config_t::bssid));
     // Static IP detection
     if (args.hasArg(String(F(AUTOCONNECT_PARAMID_DHCP)))) {

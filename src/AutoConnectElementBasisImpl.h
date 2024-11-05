@@ -642,9 +642,9 @@ const String AutoConnectRangeBasis::toHTML(void) const {
 
     if (magnify != AC_Void) {
       size_t  elmSpanLen = (AutoConnectElementBasisImpl::_sizeof(elmSpanTempl) + (AutoConnectElementBasisImpl::_sizeof(tagSpan) * 2) + AutoConnectElementBasisImpl::_sizeof(attrRight) + AutoConnectElementBasisImpl::_sizeof(attrLeft) + 4 - (AutoConnectElementBasisImpl::_sizeof("%s") * 4 + AutoConnectElementBasisImpl::_sizeof("%d")) + sizeof('\0') + 16) & (~0xf);
-      elmSpan = new char[elmSpanLen];
+      elmSpan = new char[elmSpanLen + 4];
       if (elmSpan) {
-        snprintf_P(elmSpan, elmSpanLen, elmSpanTempl, (PGM_P)tagSpan, posPadding, posAlign, value, (PGM_P)tagSpan);
+        snprintf_P(elmSpan, elmSpanLen + 4, elmSpanTempl, (PGM_P)tagSpan, posPadding, posAlign, value, (PGM_P)tagSpan);
         elmLen += strlen(elmSpan);
         if (magnify == AC_Infront)
           elmSpanPre = elmSpan;
@@ -662,9 +662,9 @@ const String AutoConnectRangeBasis::toHTML(void) const {
 
     if (step != 1) {
       size_t  attrStepLen = (AutoConnectElementBasisImpl::_sizeof(attrStepTempl) + AutoConnectElementBasisImpl::_sizeof("999") - AutoConnectElementBasisImpl::_sizeof("%d") + sizeof('\0') + 16) & (~0xf);
-      applyStep = new char[attrStepLen];
+      applyStep = new char[attrStepLen + 4];
       if (applyStep) {
-        snprintf_P(applyStep, attrStepLen, attrStepTempl, step);
+        snprintf_P(applyStep, attrStepLen+4, attrStepTempl, step);
         elmLen += strlen(applyStep);
         attrStep = applyStep;
       }

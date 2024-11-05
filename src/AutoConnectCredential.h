@@ -61,8 +61,8 @@ typedef enum {
 } station_config_dhcp;
 
 typedef struct {
-  uint8_t ssid[32];
-  uint8_t password[64];
+  uint8_t ssid[33];
+  uint8_t password[65];
   uint8_t bssid[6];
   uint8_t dhcp;   /**< 0:DHCP, 1:Static IP */
   union _config {
